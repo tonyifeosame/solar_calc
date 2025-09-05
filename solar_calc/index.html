@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Solar Calculator</title>
+  <title>Solar System Calculator</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center p-2 sm:p-4">
-  <div class="bg-white shadow-lg rounded-2xl p-6 sm:p-8 w-full max-w-md">
-    <h1 class="text-xl sm:text-2xl font-bold text-center mb-6">Solar System Calculator</h1>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-  <!-- Searchable Country Dropdown -->
+  <div class="bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg">
+    <h1 class="text-xl font-bold mb-4 text-center">⚡ Solar System Calculator</h1>
+   <!-- Country Dropdown -->
 <div class="relative w-full mb-4">
   <label class="block mb-2 font-medium text-sm sm:text-base">Country:</label>
-  
-  <!-- Selected value (acts like a button) -->
+
+  <!-- Selected value -->
   <div 
     id="dropdownButton" 
     class="w-full p-3 border rounded-lg cursor-pointer bg-white"
@@ -33,7 +33,7 @@
       class="w-full p-2 border-b outline-none"
     >
     
-      <!-- Options (Alphabetical) -->
+    <!-- Country options -->
     <div id="countryOptions">
       <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Australia">Australia</div>
       <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Brazil">Brazil</div>
@@ -53,76 +53,127 @@
     </div>
   </div>
 
-  <!-- Hidden input to actually store selected value -->
+  <!-- Hidden input to hold value -->
   <input type="hidden" id="country">
 </div>
+
+
+
     <!-- Load Input -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">Load (Watts):</label>
-    <input id="load" type="number" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base" placeholder="e.g. 500">
+    <label class="block mb-2 font-medium">Load (W):</label>
+    <input id="load" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 500">
 
-    <!-- Usage Hours Input -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">Usage Time (Hours):</label>
-    <input id="hours" type="number" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base" placeholder="e.g. 5">
+    <!-- Usage Hours -->
+    <label class="block mb-2 font-medium">Usage Time (Hours):</label>
+    <input id="usageHrs" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 5">
 
-    <!-- Backup Days -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">Backup Days (Autonomy):</label>
-    <input id="days" type="number" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base" placeholder="e.g. 2">
+    <!-- Backup Hours -->
+    <label class="block mb-2 font-medium">Backup Hours (Autonomy):</label>
+    <input id="backupHrs" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 2">
 
     <!-- System Voltage -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">System Voltage (V):</label>
-    <input id="systemV" type="number" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base" placeholder="e.g. 12, 24, 48">
+    <label class="block mb-2 font-medium">System Voltage (V):</label>
+    <input id="systemV" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 24">
 
     <!-- Solar Panel Wattage -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">Solar Panel Wattage (Wp):</label>
-    <input id="panelW" type="number" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base" placeholder="e.g. 300">
+    <label class="block mb-2 font-medium">Solar Panel Wattage (Wp):</label>
+    <input id="panelW" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 300">
 
     <!-- Battery Voltage -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">Battery Voltage (V):</label>
-    <input id="batteryV" type="number" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base" placeholder="e.g. 12">
+    <label class="block mb-2 font-medium">Battery Voltage (V):</label>
+    <input id="batteryV" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 12">
 
     <!-- Battery Capacity -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">Battery Capacity (Ah):</label>
-    <input id="batteryAh" type="number" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base" placeholder="e.g. 200">
+    <label class="block mb-2 font-medium">Battery Capacity (Ah):</label>
+    <input id="batteryAh" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 200">
 
     <!-- Battery Type -->
-    <label class="block mb-2 font-medium text-sm sm:text-base">Battery Type:</label>
-    <select id="batteryType" class="w-full p-3 border rounded-lg mb-4 text-sm sm:text-base">
+    <label class="block mb-2 font-medium">Battery Type:</label>
+    <select id="batteryType" class="w-full p-3 border rounded-lg mb-4">
       <option value="tubular">Tubular (Lead-Acid)</option>
       <option value="lithium">Lithium</option>
     </select>
 
-    <button onclick="calculateSystem()" class="w-full bg-blue-500 text-white py-3 rounded-lg text-base sm:text-lg font-medium hover:bg-blue-600 transition">Calculate</button>
-      <!-- Social Media Links -->
-<div class="mt-8 flex justify-center space-x-6">
-  <!-- WhatsApp -->
-  <a href="https://wa.me/2348143369102" target="_blank" 
-     class="flex items-center px-4 py-2 bg-green-500 text-white rounded-lg shadow hover:bg-green-600 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M12 2C6.5 2 2 6.2 2 11.7c0 2.1.7 4.1 2 5.8L2 22l4.7-1.5c1.6 1 3.5 1.5 5.3 1.5 5.5 0 10-4.2 10-9.7S17.5 2 12 2zm0 17.6c-1.6 0-3.1-.4-4.4-1.3l-.3-.2-2.8.9.9-2.7-.2-.3c-1-1.3-1.6-2.9-1.6-4.6 0-4.1 3.5-7.5 7.7-7.5 4.3 0 7.7 3.4 7.7 7.5s-3.4 7.5-7.7 7.5zm4.2-5.5c-.2-.1-1.3-.6-1.5-.6s-.3-.1-.5.1c-.1.2-.5.6-.6.8-.1.1-.2.2-.4.1s-.8-.3-1.5-.9c-.5-.5-.9-1-1-1.1s0-.3.1-.4c.1-.1.2-.2.3-.3.1-.1.2-.3.3-.4.1-.1.1-.2.2-.3s0-.2 0-.3c0-.1-.5-1.2-.7-1.7s-.4-.4-.5-.4h-.4c-.1 0-.3 0-.4.2s-.6.6-.6 1.4c0 .8.6 1.6.7 1.7.1.1 1.3 2.1 3.2 2.9.4.2.8.3 1 .4.4.1.7.1 1 .1.3 0 1 0 1.3-.4.3-.4.3-.8.2-.9z"/>
-    </svg>
-    WhatsApp
-  </a>
+    
+    <!-- Calculate Button -->
+    <button onclick="calculateSystem()" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
+      Calculate
+    </button>
+ <!-- Contact Section -->
+<div class="mt-10 text-center">
+  <h2 class="text-lg font-semibold mb-4">Connect With Me</h2>
+  <div class="flex justify-center space-x-4">
+    <!-- WhatsApp -->
+    <a href="https://wa.me/2348143369102" target="_blank" 
+       class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition">
+      WhatsApp
+    </a>
 
-  <!-- Instagram -->
-  <a href="https://www.instagram.com/tifeosame?igsh=MTQ5cW5sNGlhbHp5cA==" target="_blank" 
-     class="flex items-center px-4 py-2 bg-pink-500 text-white rounded-lg shadow hover:bg-pink-600 transition">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-      <path d="M7.5 2h9C19.9 2 22 4.1 22 7.5v9c0 3.4-2.1 5.5-5.5 5.5h-9C4.1 22 2 19.9 2 16.5v-9C2 4.1 4.1 2 7.5 2zm0 2C5.6 4 4 5.6 4 7.5v9C4 18.4 5.6 20 7.5 20h9c1.9 0 3.5-1.6 3.5-3.5v-9C20 5.6 18.4 4 16.5 4h-9zm9 1a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
-    </svg>
-    Instagram
-  </a>
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/tifeosame?igsh=MTQ5cW5sNGlhbHp5cA==" target="_blank" 
+       class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600 transition">
+      Instagram
+    </a>
+
+    <!-- Email -->
+    <a href="mailto:tonyifeosame@gmail.com" target="_blank"
+       class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+      Email
+    </a>
+  </div>
 </div>
 
 
     <!-- Results -->
-    <div id="results" class="mt-6 hidden bg-gray-50 p-4 rounded-lg border text-sm sm:text-base overflow-x-auto"></div>
+    <div id="results" class="hidden mt-6 p-4 bg-gray-50 rounded-lg border"></div>
   </div>
 
   <script>
+   const dropdownBtn = document.getElementById("dropdownButton");
+const dropdownMenu = document.getElementById("dropdownMenu");
+const countrySearch = document.getElementById("countrySearch");
+const countryOptions = document.getElementById("countryOptions").children;
+const hiddenInput = document.getElementById("country");
+
+// Toggle menu
+dropdownBtn.addEventListener("click", () => {
+  dropdownMenu.classList.toggle("hidden");
+  countrySearch.value = "";
+  filterOptions("");
+});
+
+// Filter function
+countrySearch.addEventListener("keyup", () => {
+  filterOptions(countrySearch.value.toLowerCase());
+});
+
+function filterOptions(search) {
+  for (let option of countryOptions) {
+    const txt = option.innerText.toLowerCase();
+    option.style.display = txt.includes(search) ? "" : "none";
+  }
+}
+
+// Select option
+for (let option of countryOptions) {
+  option.addEventListener("click", () => {
+    dropdownBtn.innerText = option.innerText;  // show selected
+    hiddenInput.value = option.getAttribute("data-value"); // set hidden value
+    dropdownMenu.classList.add("hidden"); // close menu
+  });
+}
+
+// Close if click outside
+document.addEventListener("click", (e) => {
+  if (!e.target.closest("#dropdownMenu") && !e.target.closest("#dropdownButton")) {
+    dropdownMenu.classList.add("hidden");
+  }
+});
+
     function calculateSystem() {
       const load = parseFloat(document.getElementById("load").value);
-      const hours = parseFloat(document.getElementById("hours").value);
-      const days = parseFloat(document.getElementById("days").value);
+      const usageHrs = parseFloat(document.getElementById("usageHrs").value);
+      const backupHrs = parseFloat(document.getElementById("backupHrs").value);
       const systemV = parseFloat(document.getElementById("systemV").value);
       const panelW = parseFloat(document.getElementById("panelW").value);
       const batteryV = parseFloat(document.getElementById("batteryV").value);
@@ -130,31 +181,21 @@
       const batteryType = document.getElementById("batteryType").value;
       const country = document.getElementById("country").value;
 
-      if (isNaN(load) || isNaN(hours) || isNaN(days) || isNaN(systemV) || isNaN(panelW) || isNaN(batteryV) || isNaN(batteryAh)) {
-        alert("Please enter all values.");
+      if (
+        isNaN(load) || isNaN(usageHrs) || isNaN(backupHrs) ||
+        isNaN(systemV) || isNaN(panelW) || isNaN(batteryV) || isNaN(batteryAh)
+      ) {
+        alert("⚠️ Please enter all values.");
         return;
       }
 
-    // Sun hours per country
-const sunHoursData = {
-  Australia: 9,
-  Brazil: 7.5,
-  Canada: 6.5,
-  China: 7.5,
-  Egypt: 11,
-  Germany: 5.5,
-  Ghana: 9.5,
-  India: 9.5,
-  Japan: 6.5,
-  Kenya: 10,
-  Mexico: 8,
-  Nigeria: 8,
-  SouthAfrica: 9,
-  UK: 6.5,
-  USA: 9.5
-};
-
-      const sunHours = sunHoursData[country] || 6; // default 6 if not listed
+      // Sun hours per country
+      const sunHoursData = {
+        Australia: 9, Brazil: 7.5, Canada: 6.5, China: 7.5, Egypt: 11,
+        Germany: 5.5, Ghana: 9.5, India: 9.5, Japan: 6.5, Kenya: 10,
+        Mexico: 8, Nigeria: 8, SouthAfrica: 9, UK: 6.5, USA: 9.5
+      };
+      const sunHours = sunHoursData[country] || 6;
       const diversityFactor = 1.6;
 
       // Adjusted load
@@ -171,71 +212,34 @@ const sunHoursData = {
       }
 
       // Energy calculations
-      const dailyEnergy = adjustedLoad * hours;
-      const totalEnergy = dailyEnergy * days;
+      const dailyEnergy = adjustedLoad * usageHrs; // daily usage
+      const totalEnergy = adjustedLoad * backupHrs; // backup capacity needed
+
+      // Battery sizing
       const seriesBatteries = Math.ceil(systemV / batteryV);
       const groupCapacityWh = batteryAh * batteryV * seriesBatteries * dod * efficiency;
       const parallelGroups = Math.ceil(totalEnergy / groupCapacityWh);
       const totalBatteries = seriesBatteries * parallelGroups;
-      const inverterSize = Math.ceil(adjustedLoad * 1.2);
-      const totalSolarWatt = dailyEnergy / sunHours;
+
+      // Inverter & Panels (with +10% margin)
+      const inverterSize = Math.ceil(adjustedLoad * 1.2 * 1.1);
+      const totalSolarWatt = (dailyEnergy / sunHours) * 1.1;
       const numPanels = Math.ceil(totalSolarWatt / panelW);
 
       // Display results
+      document.getElementById("results").classList.remove("hidden");
       document.getElementById("results").innerHTML = `
         <p><strong>Battery Type:</strong> ${batteryType === "tubular" ? "Tubular (Lead-Acid)" : "Lithium"}</p>
         <p><strong>Adjusted Load:</strong> ${adjustedLoad.toFixed(2)} W</p>
-        <p><strong>Daily Energy:</strong> ${dailyEnergy.toFixed(2)} Wh/day</p>
-        <p><strong>Total Storage Needed:</strong> ${totalEnergy.toFixed(2)} Wh</p>
+        <p><strong>Daily Energy Usage:</strong> ${dailyEnergy.toFixed(2)} Wh/day</p>
+        <p><strong>Total Backup Energy Needed:</strong> ${totalEnergy.toFixed(2)} Wh (${backupHrs} hrs backup)</p>
         <p><strong>Usable Capacity per String:</strong> ${groupCapacityWh.toFixed(2)} Wh</p>
         <p><strong>Batteries Needed:</strong> ${totalBatteries} (${seriesBatteries} in series × ${parallelGroups} parallel)</p>
-        <p><strong>Inverter Size:</strong> ${inverterSize} W / VA</p>
-        <p><strong>Solar Panels Needed:</strong> ${numPanels} × ${panelW} Wp</p>
+        <p><strong>Inverter Size (with 10% margin):</strong> ${inverterSize} W / VA</p>
+        <p><strong>Solar Panels Needed (with 10% margin):</strong> ${numPanels} × ${panelW} Wp</p>
       `;
-      document.getElementById("results").classList.remove("hidden");
     }
-        // Search filter for country dropdown
-    const dropdownBtn = document.getElementById("dropdownButton");
-  const dropdownMenu = document.getElementById("dropdownMenu");
-  const countrySearch = document.getElementById("countrySearch");
-  const countryOptions = document.getElementById("countryOptions").children;
-  const hiddenInput = document.getElementById("country");
-
-  // Toggle dropdown
-  dropdownBtn.addEventListener("click", () => {
-    dropdownMenu.classList.toggle("hidden");
-    countrySearch.value = "";
-    filterOptions("");
-  });
-
-  // Search filter
-  countrySearch.addEventListener("keyup", () => {
-    filterOptions(countrySearch.value.toLowerCase());
-  });
-
-  function filterOptions(search) {
-    for (let option of countryOptions) {
-      const txt = option.innerText.toLowerCase();
-      option.style.display = txt.includes(search) ? "" : "none";
-    }
-  }
-
-  // Select country
-  for (let option of countryOptions) {
-    option.addEventListener("click", () => {
-      dropdownBtn.innerText = option.innerText;
-      hiddenInput.value = option.getAttribute("data-value");
-      dropdownMenu.classList.add("hidden");
-    });
-  }
-
-  // Close if click outside
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest("#dropdownMenu") && !e.target.closest("#dropdownButton")) {
-      dropdownMenu.classList.add("hidden");
-    }
-  });
   </script>
+
 </body>
 </html>
-
