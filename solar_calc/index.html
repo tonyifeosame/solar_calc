@@ -351,9 +351,9 @@
         const parallelGroups = Math.max(1, Math.ceil(totalEnergy / usableWhPerString));
         const totalBatteries = seriesBatteries * parallelGroups;
         // ✅ FIXED: use 'load' (lowercase) — original logic retained
-        const inverterSize = Math.ceil(load * 1.2); // 20% margin
+        const inverterSize = Math.ceil(load * 1.5); // 20% margin
         const totalSolarWatt = (dailyEnergy / sunHours) * 1.1; // +10% margin for losses
-        const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW));
+        const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW)+1);
 
         // Get country display name
         const selectedCountryOption = countryOptions.find(opt => opt.getAttribute("data-value") === country);
@@ -423,3 +423,4 @@
   </script>
 </body>
 </html>
+
