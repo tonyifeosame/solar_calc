@@ -351,7 +351,13 @@
         const parallelGroups = Math.max(1, Math.ceil(totalEnergy / usableWhPerString));
         const totalBatteries = seriesBatteries * parallelGroups;
         // ✅ FIXED: use 'load' (lowercase) — original logic retained
-        const inverterSize = Math.ceil(load * 1.5); // 20% margin
+       // Round inverter size up to the nearest 500
+function roundToNearest500(num) {
+  return Math.ceil(num / 500) * 500;
+}
+
+       const inverterSize = roundToNearest500(load * 1.5);
+
         const totalSolarWatt = (dailyEnergy / sunHours) * 1.1; // +10% margin for losses
         const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW)*1.5);
 
@@ -423,6 +429,7 @@
   </script>
 </body>
 </html>
+
 
 
 
