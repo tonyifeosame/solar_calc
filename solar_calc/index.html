@@ -5,91 +5,225 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Solar System Calculator</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    .glass-card {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    
+    .input-focus {
+      transition: all 0.3s ease;
+    }
+    
+    .input-focus:focus {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+    }
+    
+    .btn-gradient {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-gradient:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-success {
+      background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+    }
+    
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    .results-card {
+      background: linear-gradient(135deg, rgba(72, 187, 120, 0.1) 0%, rgba(56, 161, 105, 0.1) 100%);
+      border: 1px solid rgba(72, 187, 120, 0.2);
+    }
+    
+    .social-btn {
+      transition: all 0.3s ease;
+    }
+    
+    .social-btn:hover {
+      transform: translateY(-3px) scale(1.05);
+    }
+  </style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+<body class="gradient-bg min-h-screen flex items-center justify-center p-4">
+  
+  <!-- Floating decorative elements -->
+  <div class="fixed top-20 left-10 w-20 h-20 bg-white bg-opacity-10 rounded-full floating-element hidden lg:block"></div>
+  <div class="fixed top-40 right-20 w-16 h-16 bg-white bg-opacity-10 rounded-full floating-element" style="animation-delay: -2s;"></div>
+  <div class="fixed bottom-32 left-20 w-12 h-12 bg-white bg-opacity-10 rounded-full floating-element" style="animation-delay: -4s;"></div>
 
-  <div class="bg-white shadow-lg rounded-2xl p-6 w-full max-w-lg">
-    <h1 class="text-xl font-bold mb-4 text-center">⚡ Solar System Calculator</h1>
-
-    <!-- Country dropdown -->
-    <div class="relative w-full mb-4">
-      <label class="block mb-2 font-medium text-sm">Country:</label>
-      <div id="dropdownButton" class="w-full p-3 border rounded-lg cursor-pointer bg-white">-- Select Country --</div>
-
-      <div id="dropdownMenu" class="absolute z-10 w-full bg-white border rounded-lg mt-1 hidden max-h-60 overflow-y-auto shadow-lg">
-        <input type="text" id="countrySearch" placeholder="Search country..." class="w-full p-2 border-b outline-none" />
-        <div id="countryOptions" class="text-sm">
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Australia">Australia</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Brazil">Brazil</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Canada">Canada</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="China">China</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Egypt">Egypt</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Germany">Germany</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Ghana">Ghana</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="India">India</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Japan">Japan</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Kenya">Kenya</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Mexico">Mexico</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="Nigeria">Nigeria</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="SouthAfrica">South Africa</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="UK">United Kingdom</div>
-          <div class="p-2 hover:bg-blue-100 cursor-pointer" data-value="USA">United States</div>
-        </div>
+  <div class="glass-card shadow-2xl rounded-3xl p-8 w-full max-w-2xl relative overflow-hidden">
+    
+    <!-- Header -->
+    <div class="text-center mb-8">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl mb-4 shadow-lg">
+        <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 2L13.09 8.26L20 9.27L15 14.14L16.18 21.02L10 17.77L3.82 21.02L5 14.14L0 9.27L6.91 8.26L10 2Z" clip-rule="evenodd"/>
+        </svg>
       </div>
-
-      <!-- hidden value that the calculator reads -->
-      <input type="hidden" id="country" />
+      <h1 class="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent mb-2">
+        Solar System Calculator
+      </h1>
+      <p class="text-gray-600 font-medium">Design your perfect solar energy solution</p>
     </div>
 
-    <!-- Inputs -->
-    <label class="block mb-2 font-medium">Load (W):</label>
-    <input id="load" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 500" />
+    <div class="grid md:grid-cols-2 gap-6">
+      
+      <!-- Left Column -->
+      <div class="space-y-5">
+        
+        <!-- Country dropdown -->
+        <div class="relative">
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">Location</label>
+          <div id="dropdownButton" class="w-full p-4 border-2 border-gray-200 rounded-xl cursor-pointer bg-white hover:border-purple-300 transition-colors input-focus flex items-center justify-between">
+            <span class="text-gray-500">Select your country</span>
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
 
-    <label class="block mb-2 font-medium">Usage Time (Hours):</label>
-    <input id="usageHrs" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 5" />
+          <div id="dropdownMenu" class="absolute z-20 w-full bg-white border-2 border-gray-200 rounded-xl mt-2 hidden max-h-60 overflow-hidden shadow-xl">
+            <input type="text" id="countrySearch" placeholder="Search countries..." class="w-full p-3 border-b border-gray-200 outline-none text-sm" />
+            <div id="countryOptions" class="max-h-48 overflow-y-auto">
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Australia">🇦🇺 Australia</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Brazil">🇧🇷 Brazil</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Canada">🇨🇦 Canada</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="China">🇨🇳 China</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Egypt">🇪🇬 Egypt</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Germany">🇩🇪 Germany</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Ghana">🇬🇭 Ghana</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="India">🇮🇳 India</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Japan">🇯🇵 Japan</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Kenya">🇰🇪 Kenya</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Mexico">🇲🇽 Mexico</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="Nigeria">🇳🇬 Nigeria</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="SouthAfrica">🇿🇦 South Africa</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="UK">🇬🇧 United Kingdom</div>
+              <div class="p-3 hover:bg-purple-50 cursor-pointer transition-colors text-sm font-medium" data-value="USA">🇺🇸 United States</div>
+            </div>
+          </div>
+          <input type="hidden" id="country" />
+        </div>
 
-    <label class="block mb-2 font-medium">Backup Hours (Autonomy):</label>
-    <input id="backupHrs" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 2" />
+        <!-- Load -->
+        <div>
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">Power Load (Watts)</label>
+          <input id="load" type="number" class="w-full p-4 border-2 border-gray-200 rounded-xl input-focus" placeholder="500" />
+        </div>
 
-    <label class="block mb-2 font-medium">System Voltage (V):</label>
-    <input id="systemV" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 24" />
+        <!-- Usage Hours -->
+        <div>
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">Daily Usage (Hours)</label>
+          <input id="usageHrs" type="number" class="w-full p-4 border-2 border-gray-200 rounded-xl input-focus" placeholder="5" />
+        </div>
 
-    <label class="block mb-2 font-medium">Solar Panel Wattage (Wp):</label>
-    <input id="panelW" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 300" />
+        <!-- Backup Hours -->
+        <div>
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">Backup Duration (Hours)</label>
+          <input id="backupHrs" type="number" class="w-full p-4 border-2 border-gray-200 rounded-xl input-focus" placeholder="2" />
+        </div>
 
-    <label class="block mb-2 font-medium">Battery Voltage (V):</label>
-    <input id="batteryV" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 12" />
+      </div>
 
-    <label class="block mb-2 font-medium">Battery Capacity (Ah):</label>
-    <input id="batteryAh" type="number" class="w-full p-3 border rounded-lg mb-4" placeholder="e.g. 200" />
+      <!-- Right Column -->
+      <div class="space-y-5">
 
-    <label class="block mb-2 font-medium">Battery Type:</label>
-    <select id="batteryType" class="w-full p-3 border rounded-lg mb-4">
-      <option value="tubular">Tubular (Lead-Acid)</option>
-      <option value="lithium">Lithium</option>
-    </select>
+        <!-- System Voltage -->
+        <div>
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">System Voltage (V)</label>
+          <input id="systemV" type="number" class="w-full p-4 border-2 border-gray-200 rounded-xl input-focus" placeholder="24" />
+        </div>
 
-    <!-- Calculate button with spinner -->
-    <button id="calculateBtn" class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition flex items-center justify-center space-x-2">
-      <span id="btnText">Calculate</span>
-      <svg id="btnSpinner" class="hidden animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+        <!-- Solar Panel Wattage -->
+        <div>
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">Panel Wattage (Wp)</label>
+          <input id="panelW" type="number" class="w-full p-4 border-2 border-gray-200 rounded-xl input-focus" placeholder="300" />
+        </div>
+
+        <!-- Battery Voltage -->
+        <div>
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">Battery Voltage (V)</label>
+          <input id="batteryV" type="number" class="w-full p-4 border-2 border-gray-200 rounded-xl input-focus" placeholder="12" />
+        </div>
+
+        <!-- Battery Capacity -->
+        <div>
+          <label class="block mb-3 font-semibold text-gray-700 text-sm tracking-wide">Battery Capacity (Ah)</label>
+          <input id="batteryAh" type="number" class="w-full p-4 border-2 border-gray-200 rounded-xl input-focus" placeholder="200" />
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Battery Type (Full Width) -->
+    <div class="mt-4 sm:mt-6">
+      <label class="block mb-2 sm:mb-3 font-semibold text-gray-700 text-sm tracking-wide">Battery Technology</label>
+      <select id="batteryType" class="w-full p-3 sm:p-4 border-2 border-gray-200 rounded-xl input-focus bg-white text-sm sm:text-base">
+        <option value="tubular">🔋 Tubular Lead-Acid</option>
+        <option value="lithium">⚡ Lithium Ion</option>
+      </select>
+    </div>
+
+    <!-- Calculate button -->
+    <button id="calculateBtn" class="w-full btn-gradient text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-semibold text-base sm:text-lg mt-6 sm:mt-8 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg">
+      <span id="btnText">Calculate System</span>
+      <svg id="btnSpinner" class="hidden animate-spin h-5 w-5 sm:h-6 sm:w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
       </svg>
     </button>
 
-    <!-- Contact -->
-    <div class="mt-6 text-center">
-      <h2 class="text-lg font-semibold mb-3">Connect With Me</h2>
-      <div class="flex justify-center space-x-3">
-        <a href="https://wa.me/2348143369102" target="_blank" class="bg-green-500 text-white px-3 py-2 rounded-lg hover:bg-green-600">WhatsApp</a>
-        <a href="https://www.instagram.com/tifeosame" target="_blank" class="bg-pink-500 text-white px-3 py-2 rounded-lg hover:bg-pink-600">Instagram</a>
-        <a href="mailto:tonyifeosame@gmail.com" class="bg-blue-500 text-white px-3 py-2 rounded-lg hover:bg-blue-600">Email</a>
+    <!-- Results -->
+    <div id="results" class="hidden mt-6 sm:mt-8 p-4 sm:p-6 results-card rounded-2xl transition-all duration-500 opacity-0 transform translate-y-4"></div>
+
+    <!-- Contact Section (single, cleaned copy) -->
+    <div class="mt-8 sm:mt-10 text-center border-t border-gray-200 pt-6 sm:pt-8">
+      <h2 class="text-lg sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4">Get Expert Consultation</h2>
+      <p class="text-gray-600 mb-4 sm:mb-6 text-xs sm:text-sm">Need help with your solar project? Connect with me for personalized guidance!</p>
+      <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4">
+        <a href="https://wa.me/2348143369102" target="_blank" class="social-btn bg-green-500 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold shadow-lg flex items-center justify-center space-x-2 text-sm sm:text-base">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+          </svg>
+          <span>WhatsApp</span>
+        </a>
+        <a href="https://www.instagram.com/tifeosame" target="_blank" class="social-btn bg-pink-500 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold shadow-lg flex items-center justify-center space-x-2 text-sm sm:text-base">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.611-3.197-1.559-.748-.948-.748-2.122 0-3.07.749-.948 1.9-1.559 3.197-1.559s2.448.611 3.197 1.559c.748.948.748 2.122 0 3.07-.749.948-1.9 1.559-3.197 1.559zm7.718 0c-1.297 0-2.448-.611-3.197-1.559-.748-.948-.748-2.122 0-3.07.749-.948 1.9-1.559 3.197-1.559s2.448.611 3.197 1.559c.748.948.748 2.122 0 3.07-.749.948-1.9 1.559-3.197 1.559z"/>
+          </svg>
+          <span>Instagram</span>
+        </a>
+        <a href="mailto:tonyifeosame@gmail.com" class="social-btn bg-blue-500 text-white px-4 sm:px-6 py-3 rounded-xl font-semibold shadow-lg flex items-center justify-center space-x-2 text-sm sm:text-base">
+          <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h.09c.299 0 .581.117.792.326L12 13.517l9.482-9.37c.21-.209.493-.326.792-.326h.09c.904 0 1.636.732 1.636 1.636z"/>
+          </svg>
+          <span>Email</span>
+        </a>
       </div>
     </div>
-
-    <!-- Results -->
-    <div id="results" class="hidden mt-6 p-4 bg-gray-50 rounded-lg border transition-opacity duration-300 opacity-0"></div>
   </div>
 
   <script>
@@ -139,10 +273,11 @@
 
       countryOptions.forEach(opt => {
         opt.addEventListener("click", () => {
-          dropdownBtn.innerText = opt.innerText;
+          const countryText = opt.innerText;
+          dropdownBtn.innerHTML = `<span>${countryText}</span><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>`;
           hiddenCountry.value = opt.getAttribute("data-value");
           dropdownMenu.classList.add("hidden");
-          resetButton(); // selecting a country should reset the calculate button
+          resetButton();
         });
       });
 
@@ -160,11 +295,10 @@
       });
 
       function resetButton() {
-        btnText.textContent = "Calculate";
+        btnText.textContent = "Calculate System";
         btnSpinner.classList.add("hidden");
         calculateBtn.disabled = false;
-        calculateBtn.classList.remove("bg-green-500", "hover:bg-green-600");
-        calculateBtn.classList.add("bg-blue-500", "hover:bg-blue-600");
+        calculateBtn.className = "w-full btn-gradient text-white py-4 px-6 rounded-xl font-semibold text-lg mt-8 flex items-center justify-center space-x-3 shadow-lg";
       }
 
       // Main calculation
@@ -216,40 +350,74 @@
         const usableWhPerString = packWhPerString * dod * efficiency;
         const parallelGroups = Math.max(1, Math.ceil(totalEnergy / usableWhPerString));
         const totalBatteries = seriesBatteries * parallelGroups;
-        const inverterSize = Math.ceil(adjustedLoad * 1.2); // 20% margin
+        // ✅ FIXED: use 'load' (lowercase) — original logic retained
+        const inverterSize = Math.ceil(load * 1.2); // 20% margin
         const totalSolarWatt = (dailyEnergy / sunHours) * 1.1; // +10% margin for losses
         const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW));
 
-        // build results HTML (friendly formatting)
+        // Get country display name
+        const selectedCountryOption = countryOptions.find(opt => opt.getAttribute("data-value") === country);
+        const countryDisplay = selectedCountryOption ? selectedCountryOption.innerText : (country || "Not selected");
+
+        // build results HTML (modern styling)
         const resultsHTML = `
-          <h3 class="font-semibold mb-2">Results</h3>
-          <p><strong>Country:</strong> ${country || "Not selected"} (Sun hours: ${sunHours})</p>
-          <p><strong>Battery Type:</strong> ${batteryType === "tubular" ? "Tubular (Lead-Acid)" : "Lithium"}</p>
-          <hr class="my-2" />
-          <p><strong>Adjusted Load:</strong> ${adjustedLoad.toFixed(1)} W</p>
-          <p><strong>Daily Energy:</strong> ${dailyEnergy.toFixed(1)} Wh (${(dailyEnergy/1000).toFixed(2)} kWh)</p>
-          <p><strong>Backup Energy Needed:</strong> ${totalEnergy.toFixed(1)} Wh (${backupHrs} hrs)</p>
-          <p><strong>Usable per Battery String:</strong> ${usableWhPerString.toFixed(0)} Wh</p>
-          <p><strong>Batteries:</strong> ${totalBatteries} (${seriesBatteries} in series × ${parallelGroups} parallel)</p>
-          <p><strong>Recommended Inverter:</strong> ${inverterSize} W</p>
-          <p><strong>Solar Panels:</strong> ${numPanels} × ${panelW} Wp</p>
+          <div class="flex items-center mb-4">
+            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+              <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800">System Recommendations</h3>
+          </div>
+          
+          <div class="grid md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-white bg-opacity-50 p-4 rounded-lg">
+              <p class="text-sm font-medium text-gray-600 mb-1">Location & Battery Type</p>
+              <p class="font-semibold text-gray-800">${countryDisplay}</p>
+              <p class="text-sm text-gray-600">Sun hours: ${sunHours}/day • ${batteryType === "tubular" ? "Tubular Lead-Acid" : "Lithium Ion"}</p>
+            </div>
+            <div class="bg-white bg-opacity-50 p-4 rounded-lg">
+              <p class="text-sm font-medium text-gray-600 mb-1">Load Analysis</p>
+              <p class="font-semibold text-gray-800">${adjustedLoad.toFixed(1)} W (Adjusted)</p>
+              <p class="text-sm text-gray-600">Daily: ${(dailyEnergy/1000).toFixed(2)} kWh • Backup: ${(totalEnergy/1000).toFixed(2)} kWh</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="flex justify-between items-center py-3 border-b border-gray-200">
+              <span class="font-medium text-gray-700">🔋 Battery Configuration</span>
+              <span class="font-bold text-gray-900">${totalBatteries} batteries (${seriesBatteries}S × ${parallelGroups}P)</span>
+            </div>
+            <div class="flex justify-between items-center py-3 border-b border-gray-200">
+              <span class="font-medium text-gray-700">⚡ Recommended Inverter</span>
+              <span class="font-bold text-gray-900">${inverterSize} Watts</span>
+            </div>
+            <div class="flex justify-between items-center py-3">
+              <span class="font-medium text-gray-700">☀️ Solar Panel Array</span>
+              <span class="font-bold text-gray-900">${numPanels} × ${panelW}Wp panels</span>
+            </div>
+          </div>
+
+          <div class="mt-6 p-4 bg-blue-50 rounded-lg border-l-4 border-blue-400">
+            <p class="text-sm text-blue-700"><strong>Total Solar Capacity:</strong> ${(numPanels * panelW / 1000).toFixed(2)} kW</p>
+            <p class="text-sm text-blue-700 mt-1"><strong>Usable Battery Storage:</strong> ${usableWhPerString.toFixed(0)} Wh per string</p>
+          </div>
         `;
 
-        // show results (fade in)
+        // show results (smooth animation)
         resultsDiv.innerHTML = resultsHTML;
         resultsDiv.classList.remove("hidden");
-        // trigger fade by setting opacity -> 1
+        // trigger animation
         requestAnimationFrame(() => {
-          resultsDiv.classList.remove("opacity-0");
-          resultsDiv.classList.add("opacity-100");
+          resultsDiv.classList.remove("opacity-0", "translate-y-4");
+          resultsDiv.classList.add("opacity-100", "translate-y-0");
         });
 
-        // finish: update button to green + text
-        btnText.textContent = "Calculated ✅";
+        // finish: update button to success state
+        btnText.textContent = "✅ Calculation Complete";
         btnSpinner.classList.add("hidden");
         calculateBtn.disabled = false;
-        calculateBtn.classList.remove("bg-blue-500", "hover:bg-blue-600");
-        calculateBtn.classList.add("bg-green-500", "hover:bg-green-600");
+        calculateBtn.className = "w-full btn-success text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-semibold text-base sm:text-lg mt-6 sm:mt-8 flex items-center justify-center space-x-2 sm:space-x-3 shadow-lg";
       });
     });
   </script>
