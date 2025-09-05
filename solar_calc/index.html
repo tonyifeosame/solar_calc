@@ -94,11 +94,14 @@
       <option value="lithium">Lithium</option>
     </select>
 
-    
-    <!-- Calculate Button -->
-    <button onclick="calculateSystem()" class="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
-      Calculate
-    </button>
+    <!-- Calculate button -->
+    <button 
+  id="calculateBtn"
+  onclick="calculateSystem()" 
+  class="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition">
+  Calculate
+</button>
+
  <!-- Contact Section -->
 <div class="mt-10 text-center">
   <h2 class="text-lg font-semibold mb-4">Connect With Me</h2>
@@ -238,8 +241,16 @@ document.addEventListener("click", (e) => {
         <p><strong>Inverter Size (with 10% margin):</strong> ${inverterSize} W / VA</p>
         <p><strong>Solar Panels Needed (with 10% margin):</strong> ${numPanels} × ${panelW} Wp</p>
       `;
+        // ✅ Only update button AFTER successful calculation
+  const calcBtn = document.getElementById("calculateBtn");
+  calcBtn.classList.remove("bg-blue-500", "hover:bg-blue-600");
+  calcBtn.classList.add("bg-green-500", "hover:bg-green-600");
+  calcBtn.textContent = "Calculated ✅";
+    }
+   
     }
   </script>
 
 </body>
 </html>
+
