@@ -247,7 +247,7 @@
       const sunHoursData = {
         Australia: 7, Brazil: 5.5, Canada: 4.5, China: 5, Egypt: 9,
         Germany: 3.5, Ghana: 7.5, India: 7.5, Japan: 4.5, Kenya: 8,
-        Mexico: 6, Nigeria: 8, SouthAfrica: 7, UK: 4.5, USA: 6.5
+        Mexico: 6, Nigeria: 6, SouthAfrica: 7, UK: 4.5, USA: 6.5
       };
 
       // Dropdown behavior
@@ -359,7 +359,7 @@ function roundToNearest500(num) {
        const inverterSize = roundToNearest500(load * 1.5);
 
         const totalSolarWatt = (dailyEnergy / sunHours) * 1.1; // +10% margin for losses
-        const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW)*1.5);
+        const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW)+2);
 
         // Get country display name
         const selectedCountryOption = countryOptions.find(opt => opt.getAttribute("data-value") === country);
@@ -429,6 +429,7 @@ function roundToNearest500(num) {
   </script>
 </body>
 </html>
+
 
 
 
