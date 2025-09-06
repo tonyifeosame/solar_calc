@@ -359,7 +359,7 @@ function roundToNearest500(num) {
        const inverterSize = roundToNearest500(load * 1.5);
 
         const totalSolarWatt = (dailyEnergy / sunHours) * 1.1; // +10% margin for losses
-        const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW)+2);
+        const numPanels = Math.max(0, Math.ceil(totalSolarWatt / panelW)+1);
 
         // Get country display name
         const selectedCountryOption = countryOptions.find(opt => opt.getAttribute("data-value") === country);
@@ -429,6 +429,7 @@ function roundToNearest500(num) {
   </script>
 </body>
 </html>
+
 
 
 
